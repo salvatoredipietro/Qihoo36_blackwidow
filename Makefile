@@ -1,7 +1,14 @@
 CLEAN_FILES = # deliberately empty, so we can append below.
-CXX=g++
-LDFLAGS= -lpthread -lrt
-CXXFLAGS= -g -std=c++11 -fno-builtin-memcmp -msse -msse4.2 -pipe -fPIC
+CXX?= g++
+LDFLAGS+= -lpthread -lrt
+CXXFLAGS= -g -std=c++17 -fno-builtin-memcmp -pipe -fPIC
+ARCH:=$(shell uname -p)
+ifeq ($(ARCH), aarch64)
+	CXXFLAGS+=-march=armv8-a+crc+crypto -moutline-atomics
+endif
+ifeq ($(ARCH), x86_64)
+	CXXFLAGS+=-msse -msse4.2
+endif
 PROFILING_FLAGS=-pg
 ARFLAGS = rs
 OPT=
@@ -112,6 +119,10 @@ $(SRC_DIR)/build_version.cc: FORCE
 FORCE: 
 
 LIBOBJECTS = $(LIB_SOURCES:.cc=.o)
+
+dummy := $(shell (cd $(ROCKSDB_PATH) && "./build_tools/build_detect_platform" "./make_config.mk"))
+include $(ROCKSDB_PATH)/make_config.mk
+CXXFLAGS += $(PLATFORM_CXXFLAGS)
 
 # if user didn't config LIBNAME, set the default
 ifeq ($(LIBNAME),)

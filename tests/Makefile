@@ -1,5 +1,12 @@
-CXX=g++
-CXXFLAGS= -g -std=c++11 -fno-builtin-memcmp -msse -msse4.2
+CXX?= g++
+CXXFLAGS= -g -std=c++17 -fno-builtin-memcmp
+ARCH:=$(shell uname -p)
+ifeq ($(ARCH), aarch64)
+	CXXFLAGS+=-march=armv8-a+crc+crypto -moutline-atomics
+endif
+ifeq ($(ARCH), x86_64)
+	CXXFLAGS+=-msse -msse4.2
+endif
 OPT=
 
 .PHONY: clean all
@@ -27,7 +34,7 @@ endif
 # Get processor numbers
 dummy := $(shell ("$(CURDIR)/../detect_environment" "$(CURDIR)/make_config.mk"))
 include make_config.mk
-LDFLAGS = -lpthread -lrt $(ROCKSDB_LDFLAGS)
+LDFLAGS = -lpthread -lrt -ldl $(ROCKSDB_LDFLAGS)
 
 ifndef BLACKWIDOW_PATH
   $(warning Warning: missing blackwidow path, using default)
@@ -90,7 +97,7 @@ GOOGLETEST:
 	@cd $(GOOGLETEST_PATH); if [ ! -f ./Makefile ]; then  cmake .; fi; make;
 
 ROCKSDB:
-	$(AM_V_at)make -j $(PROCESSOR_NUMS) -C $(ROCKSDB_PATH)/ static_lib
+	$(AM_V_at)USE_RTTI=1 make -j $(PROCESSOR_NUMS) -C $(ROCKSDB_PATH)/ static_lib
 
 SLASH:
 	$(AM_V_at)make -C $(SLASH_PATH)/slash

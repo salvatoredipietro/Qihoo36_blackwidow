@@ -11,7 +11,7 @@
 #include "rocksdb/status.h"
 #include "rocksdb/transaction_log.h"
 
-namespace rocksdb {
+namespace ROCKSDB_NAMESPACE {
 
 class DB;
 
@@ -40,5 +40,5 @@ class DBCheckpoint {
   virtual ~DBCheckpoint() {}
 };
 
-}  // namespace rocksdb
+}  // namespace ROCKSDB_NAMESPACE
 #endif  // !ROCKSDB_LITE
