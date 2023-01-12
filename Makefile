@@ -143,7 +143,7 @@ static_lib: $(LIBRARY)
 dbg: $(LIBRARY)
 
 test:
-	make test -C ./tests
+	CXXFLAGS='-Wno-error=deprecated-copy -Wno-error=pessimizing-move' make test -C ./tests
 
 example:
 	make -C ./examples
