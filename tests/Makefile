@@ -64,7 +64,12 @@ endif
 GOOGLETEST_INCLUDE_DIR=$(GOOGLETEST_PATH)/include
 GOOGLETEST_LIBRARY=$(GOOGLETEST_PATH)/libgtest.a
 
-CXXFLAGS+= -I$(BLACKWIDOW_PATH) -I$(BLACKWIDOW_INCLUDE_DIR) -I$(ROCKSDB_INCLUDE_DIR) -I$(SLASH_INCLUDE_DIR) -I$(GOOGLETEST_INCLUDE_DIR) $(OPT)
+WARNING_FLAGS = -W -Wextra -Wall -Wsign-compare \
+  -Wno-unused-parameter -Wno-redundant-decls -Wwrite-strings \
+	-Wpointer-arith -Wreorder -Wswitch -Wsign-promo \
+	-Woverloaded-virtual -Wnon-virtual-dtor -Wno-missing-field-initializers
+
+CXXFLAGS+= $(WARNING_FLAGS) -I$(BLACKWIDOW_PATH) -I$(BLACKWIDOW_INCLUDE_DIR) -I$(ROCKSDB_INCLUDE_DIR) -I$(SLASH_INCLUDE_DIR) -I$(GOOGLETEST_INCLUDE_DIR) $(OPT)
 
 DEP_LIBS = $(BLACKWIDOW_LIBRARY) $(ROCKSDB_LIBRARY) $(SLASH_LIBRARY) $(GOOGLETEST_LIBRARY)
 LDFLAGS := $(DEP_LIBS) $(LDFLAGS)
