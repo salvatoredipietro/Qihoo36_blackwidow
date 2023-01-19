@@ -1,7 +1,7 @@
 CLEAN_FILES = # deliberately empty, so we can append below.
 CXX?= g++
 LDFLAGS+= -lpthread -lrt
-CXXFLAGS= -g -std=c++11 -fno-builtin-memcmp -pipe -fPIC
+CXXFLAGS= -g -std=c++17 -fno-builtin-memcmp -pipe -fPIC
 ARCH:=$(shell uname -p)
 ifeq ($(ARCH), aarch64)
 	CXXFLAGS+=-march=armv8-a+crc+crypto -moutline-atomics

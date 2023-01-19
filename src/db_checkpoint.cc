@@ -18,12 +18,12 @@
 #include <inttypes.h>
 
 #include "rocksdb/db.h"
-#include "util/file_util.h"
+#include "file/file_util.h"
 
 #if (ROCKSDB_MAJOR < 5 || (ROCKSDB_MAJOR == 5 && ROCKSDB_MINOR < 3))
 #include "db/filename.h"
 #else
-#include "util/filename.h"
+#include "file/filename.h"
 #endif
 
 namespace rocksdb {
