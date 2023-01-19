@@ -1,5 +1,5 @@
 CXX?= g++
-CXXFLAGS= -g -std=c++11 -fno-builtin-memcmp
+CXXFLAGS= -g -std=c++17 -fno-builtin-memcmp
 ARCH:=$(shell uname -p)
 ifeq ($(ARCH), aarch64)
 	CXXFLAGS+=-march=armv8-a+crc+crypto -moutline-atomics
