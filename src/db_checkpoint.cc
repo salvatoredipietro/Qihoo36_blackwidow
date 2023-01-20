@@ -26,7 +26,7 @@
 #include "file/filename.h"
 #endif
 
-namespace rocksdb {
+namespace ROCKSDB_NAMESPACE {
 
 class DBCheckpointImpl : public DBCheckpoint {
  public:
@@ -295,6 +295,6 @@ Status DBCheckpointImpl::CreateCheckpointWithFiles(
 
   return s;
 }
-}  // namespace rocksdb
+}  // namespace ROCKSDB_NAMESPACE
 
 #endif  // ROCKSDB_LITE

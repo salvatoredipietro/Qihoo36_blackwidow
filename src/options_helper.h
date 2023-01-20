@@ -8,7 +8,7 @@
 
 #include <cstddef>
 
-#include <rocksdb/options.h>
+#include "rocksdb/options.h"
 
 namespace blackwidow {
 
