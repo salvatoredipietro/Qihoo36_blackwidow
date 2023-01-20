@@ -34,7 +34,7 @@ endif
 # Get processor numbers
 dummy := $(shell ("$(CURDIR)/../detect_environment" "$(CURDIR)/make_config.mk"))
 include make_config.mk
-LDFLAGS = -lpthread -lrt $(ROCKSDB_LDFLAGS)
+LDFLAGS = -lpthread -lrt -ldl $(ROCKSDB_LDFLAGS)
 
 ifndef BLACKWIDOW_PATH
   $(warning Warning: missing blackwidow path, using default)
