@@ -121,7 +121,8 @@ FORCE:
 LIBOBJECTS = $(LIB_SOURCES:.cc=.o)
 
 dummy := $(shell (cd $(ROCKSDB_PATH) && "./build_tools/build_detect_platform" "./make_config.mk"))
-ROCKSDB_CXXFLAGS = $(shell (grep 'PLATFORM_CXXFLAGS' $(ROCKSDB_PATH)/make_config.mk | sed "s/PLATFORM_CXXFLAGS=//"))
+include $(ROCKSDB_PATH)/make_config.mk
+CXXFLAGS += $(PLATFORM_CXXFLAGS)
 
 # if user didn't config LIBNAME, set the default
 ifeq ($(LIBNAME),)
@@ -165,4 +166,4 @@ clean:
 	find . -type f -regex ".*\.\(\(gcda\)\|\(gcno\)\)" -exec rm {} \;
 
 %.o: %.cc
-	$(AM_V_CXX)$(CXX) $(ROCKSDB_CXXFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(AM_V_CXX)$(CXX) $(CXXFLAGS) -c $< -o $@
