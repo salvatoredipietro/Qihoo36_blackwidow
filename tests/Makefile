@@ -97,7 +97,7 @@ GOOGLETEST:
 	@cd $(GOOGLETEST_PATH); if [ ! -f ./Makefile ]; then  cmake .; fi; make;
 
 ROCKSDB:
-	$(AM_V_at)make -j $(PROCESSOR_NUMS) -C $(ROCKSDB_PATH)/ static_lib
+	$(AM_V_at)USE_RTTI=1 make -j $(PROCESSOR_NUMS) -C $(ROCKSDB_PATH)/ static_lib
 
 SLASH:
 	$(AM_V_at)make -C $(SLASH_PATH)/slash
